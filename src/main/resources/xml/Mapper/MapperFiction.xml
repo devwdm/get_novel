@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xml.Mapper.FictionsMapper">
+
+
+    <select id="selectMaxId" resultType="entity.Fiction">
+       select MAX(id) as id from fiction
+  </select>
+
+    <select id="selectFictionById" resultType="entity.Fiction">
+       select *  from fiction where id=#{id}
+  </select>
+
+
+    <select id="selectFictionByName" parameterType="String" resultType="entity.Fiction">
+       select id from fiction where name=#{name}
+  </select>
+
+    <insert id="addFiction" parameterType="entity.Fiction">
+      insert into fiction(name,author,type,state,wordNumber,lastestupdate,lastestChapter,intro,url,crawLastTime)
+      values (#{name},#{author},#{type},#{state},#{wordNumber},#{lastestupdate},#{lastestChapter},#{intro},#{url},#{crawLastTime})
+  </insert>
+
+    <delete id="deleteAllFictions">
+    delete from fiction 
+  </delete>
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xml.Mapper.ChatpersMapper">
+    <select id="selectMaxId" resultType="entity.Chapters">
+       select MAX(id) as id from chapters
+  </select>
+    <select id="selectChaptersHtml" parameterType="string" resultType="string">
+       select html from chapters where html=#{html}
+  </select>
+
+    <select id="selectAllChaptersById"  parameterType="int" resultType="entity.Chapters">
+       select * from chapters where fictionId=#{fictionId}
+  </select>
+
+    <insert id="addChatpers" parameterType="entity.Chapters">
+      insert into chapters (fictionId,title,content,html,createDate,sort)
+      values (#{fictionId},#{title},#{content},#{html},#{createDate},#{sort})
+  </insert>
+
+    <insert id="addChatpersList" parameterType="java.util.List">
+        insert into chatpers (fictionId,title,content,html,createDate,orderById) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.fictionId},#{item.title},#{item.content},#{item.html},#{item.createDate},#{item.orderById})
+        </foreach>
+    </insert>
+
+    <delete id="deleteAllChatpers">
+    delete from chapters 
+  </delete>
+
+</mapper>
